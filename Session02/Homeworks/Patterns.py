@@ -3,11 +3,13 @@ print("a.") #a.
 print("I.") #I.
 for i in range(20):
     print(i,end=" ")
+print(" ")
 
 print("II.") #II.
 k = int(input("Enter a number : "))
 for i in range(k):
     print(i,end=" ")
+print(" ")
 
 print("b") #b.
 
