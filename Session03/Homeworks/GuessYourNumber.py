@@ -1,4 +1,4 @@
-top=100
+top=101
 bot=0
 jung=50
 playing=True
