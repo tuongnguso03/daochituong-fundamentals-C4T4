@@ -1,8 +1,9 @@
-
+from time import sleep
 import keyboard
+import os
 map = {
-    "size_x" : 5,
-    "size_y" : 5,
+    "size_x" : 6,
+    "size_y" : 6,
 }
 
 player = {
@@ -62,19 +63,19 @@ while playing == True:
     while clicking==True:
         if keyboard.is_pressed('a'): 
             clicka=True
-            input() #Không có cái này nó chạy tới cuối map luôn ...
+            #input() #Không có cái này nó chạy tới cuối map luôn ...
             clicking=False
         elif keyboard.is_pressed('s'):
             clicks=True
-            input()
+            #input()
             clicking=False
         elif keyboard.is_pressed('d'):
             clickd=True
-            input()
+            #input()
             clicking=False
         elif keyboard.is_pressed('w'):
             clickw=True
-            input()
+            #input()
             clicking=False
            
     if clicks:
@@ -152,7 +153,8 @@ while playing == True:
     else:
         input()
         playing=False
-
+    sleep(0.1) #cái thứ 2 ngăn nó chạy    
+    os.system('cls')
     points=0
     for box_alpha in boxes:
         for dest_alpha in dests:
