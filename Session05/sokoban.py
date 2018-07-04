@@ -24,6 +24,7 @@ dests = [
 ]
 playing=True
 while playing == True:
+    os.system('cls')
     for y in range(map["size_y"]):
         for x in range (map["size_x"]):
             
@@ -55,6 +56,7 @@ while playing == True:
         print()    
 
     #inp=input("Input :").lower()
+    sleep(0.1) #cái thứ 2 ngăn nó chạy    
     clicka=False
     clicks=False
     clickw=False
@@ -153,8 +155,8 @@ while playing == True:
     else:
         input()
         playing=False
-    sleep(0.1) #cái thứ 2 ngăn nó chạy    
-    os.system('cls')
+    
+    
     points=0
     for box_alpha in boxes:
         for dest_alpha in dests:
