@@ -1,30 +1,25 @@
 from time import sleep
 import keyboard
 
-
 map = {
     "size_x" : 11,
     "size_y" : 11
 }
-
 player = {
     "x": 4,
     "y": 4,
 }
-
 boxes = [
     
     {"x":3,"y":3},
     {"x":5,"y":4},
     {"x":4,"y":5}
 ]
-
 dests = [
     
     {"x":6,"y":6},
     {"x":6,"y":7},
     {"x":7,"y":6}
-   
 ]
 walls = [
     {"x":0,"y":3},
@@ -78,9 +73,9 @@ walls = [
     {"x":10,"y":4},
     {"x":10,"y":5},
     {"x":10,"y":6},
-    {"x":10,"y":7}
-    
+    {"x":10,"y":7}    
 ]
+
 playground=[]
 for y in range(map["size_y"]):
         playrow=[]
@@ -127,8 +122,19 @@ while playing == True:
     for k in range(len(playground)):
         print(*playground[k],sep=" ")
 
+    win=True
+    for dest_alpha in dests:
+        if playground[dest_alpha["y"]][dest_alpha["x"]] != "B":
+            win=False           
+            if playground[dest_alpha["y"]][dest_alpha["x"]] == "-":
+                playground[dest_alpha["y"]][dest_alpha["x"]]="D"
+    if win:
+        print("Win")
+        playing=False
+        break
+
     #inp=input("Input :").lower()
-    sleep(0.1) #cái thứ 2 ngăn nó chạy    
+    sleep(0.15) #cái thứ 2 ngăn nó chạy    
     clicka=False
     clicks=False
     clickw=False
@@ -152,69 +158,29 @@ while playing == True:
             #input()
             clicking=False
            
+    dx=0
+    dy=0
     if clicks:
-        #player in map
-        if playground[player["y"]+1][player["x"]]=="B" :
-            if playground[player["y"]+2][player["x"]]=="-" or playground[player["y"]+2][player["x"]]=="D" :
-                playground[player["y"]][player["x"]]="-"
-                playground[player["y"]+1][player["x"]]="P"
-                playground[player["y"]+2][player["x"]]="B"
-                player["y"] += 1
-        elif playground[player["y"]+1][player["x"]] != "W":
-                playground[player["y"]+1][player["x"]]="P"
-                playground[player["y"]][player["x"]]="-"
-                player["y"] += 1
-            
-    
+        dy = 1
+
     elif clickd:
-        #player in map
-        if playground[player["y"]][player["x"]+1]=="B" :
-            if playground[player["y"]][player["x"]+2]=="-" or playground[player["y"]][player["x"]+2]=="D" :
-                playground[player["y"]][player["x"]]="-"
-                playground[player["y"]][player["x"]+1]="P"
-                playground[player["y"]][player["x"]+2]="B"
-                player["x"] += 1
-        elif playground[player["y"]][player["x"]+1] != "W":
-                playground[player["y"]][player["x"]+1]="P"
-                playground[player["y"]][player["x"]]="-"
-                player["x"] += 1
+        dx = 1
     
     elif clickw:
-        #player in map
-        if playground[player["y"]-1][player["x"]]=="B" :
-            if playground[player["y"]-2][player["x"]]=="-" or playground[player["y"]-2][player["x"]]=="D" :
-                playground[player["y"]][player["x"]]="-"
-                playground[player["y"]-1][player["x"]]="P"
-                playground[player["y"]-2][player["x"]]="B"
-                player["y"] -= 1
-        elif playground[player["y"]-1][player["x"]] != "W":
-                playground[player["y"]-1][player["x"]]="P"
-                playground[player["y"]][player["x"]]="-"
-                player["y"] -= 1
+        dy = -1
     
     elif clicka:
-        #player in map
-        if playground[player["y"]][player["x"]-1]=="B" :
-            if playground[player["y"]][player["x"]-2]=="-" or playground[player["y"]][player["x"]-2]=="D" :
+        dx = -1
+
+    if playground[player["y"]+dy][player["x"]+dx]=="B" :
+            if playground[player["y"]+2*dy][player["x"]+2*dx]=="-" or playground[player["y"]+2*dy][player["x"]+2*dx]=="D" :
                 playground[player["y"]][player["x"]]="-"
-                playground[player["y"]][player["x"]-1]="P"
-                playground[player["y"]][player["x"]-2]="B"
-                player["x"] -= 1
-        elif playground[player["y"]][player["x"]-1] != "W":
-                playground[player["y"]][player["x"]-1]="P"
+                playground[player["y"]+dy][player["x"]+dx]="P"
+                playground[player["y"]+2*dy][player["x"]+2*dx]="B"
+                player["y"] += dy
+                player["x"] += dx
+    elif playground[player["y"]+dy][player["x"]+dx] != "W" :
+                playground[player["y"]+dy][player["x"]+dx]="P"
                 playground[player["y"]][player["x"]]="-"
-                player["x"] -= 1
-
-    points=0
-    for dest_alpha in dests:
-        if playground[dest_alpha["y"]][dest_alpha["x"]] == "B":
-
-            points=points+1           
-        elif playground[dest_alpha["y"]][dest_alpha["x"]] == "-":
-            playground[dest_alpha["y"]][dest_alpha["x"]]="D"
-    if points==len(dests):
-        for k in range(len(playground)):
-        print(*playground[k],sep=" ")
-        print()
-        playing=False
-
+                player["y"] += dy
+                player["x"] += dx
